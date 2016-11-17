@@ -25,6 +25,11 @@ class HelloWorldHookTests(WebhookTestCase):
         # use fixture named helloworld_goodbye
         self.send_and_test_stream_message('goodbye', expected_subject, expected_message,
                                           content_type="application/x-www-form-urlencoded")
+    def test_sup_message(self):
+        expected_subject = u"Hello World";
+        expected_message = u"Hello! I am happy to be here! :smile:\nThe Wikipedia featured article for today is **[Elon Musk](https://en.wikipedia.org/wiki/Elon_Musk)**"; 
+        self.send_and_test_stream_message('sup', expected_subject, expected_message,
+                                            content_type = "application/x-www-form-urlencoded")
 
     def get_body(self, fixture_name):
         # type: (text_type) -> text_type
