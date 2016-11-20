@@ -146,7 +146,7 @@ urls = list(i18n_urls)
 # please add it here.
 # See rest_dispatch in zerver.lib.rest for an explanation of auth methods used
 #
-# All of these paths are accessed by either a /json or /api prefix
+# All of these paths are accessed by either a /json or /api/v1 prefix
 v1_api_and_json_patterns = [
     # realm-level calls
     url(r'^realm$', rest_dispatch,
@@ -161,6 +161,13 @@ v1_api_and_json_patterns = [
          'PUT': 'zerver.views.realm_emoji.upload_emoji'}),
     url(r'^realm/emoji/(?P<emoji_name>[0-9a-zA-Z.\-_]+(?<![.\-_]))$', rest_dispatch,
         {'DELETE': 'zerver.views.realm_emoji.delete_emoji'}),
+
+    # realm/filters -> zerver.views.realm_filters
+    url(r'^realm/filters$', rest_dispatch,
+        {'GET': 'zerver.views.realm_filters.list_filters',
+         'POST': 'zerver.views.realm_filters.create_filter'}),
+    url(r'^realm/filters/(?P<filter_id>\d+)$', rest_dispatch,
+        {'DELETE': 'zerver.views.realm_filters.delete_filter'}),
 
     # users -> zerver.views.users
     url(r'^users$', rest_dispatch,
